@@ -15,7 +15,7 @@ import logging
 import nni
 from nni.utils import merge_parameter
 from config import return_args, args
-torch.cuda.current_device()
+# torch.cuda.current_device()
 
 warnings.filterwarnings('ignore')
 

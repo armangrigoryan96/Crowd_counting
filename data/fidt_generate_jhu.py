@@ -13,7 +13,7 @@ import torch
 import cv2
 
 # set the root to the JHU dataset you download
-root = '../jhu_crowd_v2.0'
+root = 'jhu_crowd_v2.0'
 
 train = root + '/train/images/'
 val = root + '/val/images/'

@@ -4,76 +4,8 @@ import numpy as np
 if not os.path.exists('./npydata'):
     os.makedirs('./npydata')
 
-'''please set your dataset path'''
-shanghai_root = '/home/dkliang/projects/synchronous/dataset/ShanghaiTech'
 jhu_root = 'jhu_crowd_v2.0'
-qnrf_root = '/home/dkliang/projects/synchronous/dataset/UCF-QNRF_ECCV18'
 
-# try:
-#
-#     shanghaiAtrain_path = shanghai_root + '/part_A_final/train_data/images/'
-#     shanghaiAtest_path = shanghai_root + '/part_A_final/test_data/images/'
-#
-#     train_list = []
-#     for filename in os.listdir(shanghaiAtrain_path):
-#         if filename.split('.')[1] == 'jpg':
-#             train_list.append(shanghaiAtrain_path + filename)
-#
-#     train_list.sort()
-#     np.save('./npydata/ShanghaiA_train.npy', train_list)
-#
-#     test_list = []
-#     for filename in os.listdir(shanghaiAtest_path):
-#         if filename.split('.')[1] == 'jpg':
-#             test_list.append(shanghaiAtest_path + filename)
-#     test_list.sort()
-#     np.save('./npydata/ShanghaiA_test.npy', test_list)
-#
-#     print("generate ShanghaiA image list successfully")
-# except:
-#     print("The ShanghaiA dataset path is wrong. Please check you path.")
-
-# try:
-#     shanghaiBtrain_path = shanghai_root + '/part_B_final/train_data/images/'
-#     shanghaiBtest_path = shanghai_root + '/part_B_final/test_data/images/'
-#
-#     train_list = []
-#     for filename in os.listdir(shanghaiBtrain_path):
-#         if filename.split('.')[1] == 'jpg':
-#             train_list.append(shanghaiBtrain_path + filename)
-#     train_list.sort()
-#     np.save('./npydata/ShanghaiB_train.npy', train_list)
-#
-#     test_list = []
-#     for filename in os.listdir(shanghaiBtest_path):
-#         if filename.split('.')[1] == 'jpg':
-#             test_list.append(shanghaiBtest_path + filename)
-#     test_list.sort()
-#     np.save('./npydata/ShanghaiB_test.npy', test_list)
-#     print("Generate ShanghaiB image list successfully")
-# except:
-#     print("The ShanghaiB dataset path is wrong. Please check your path.")
-#
-# try:
-#     Qnrf_train_path = qnrf_root + '/train_data/images/'
-#     Qnrf_test_path = qnrf_root + '/test_data/images/'
-#
-#     train_list = []
-#     for filename in os.listdir(Qnrf_train_path):
-#         if filename.split('.')[1] == 'jpg':
-#             train_list.append(Qnrf_train_path + filename)
-#     train_list.sort()
-#     np.save('./npydata/qnrf_train.npy', train_list)
-#
-#     test_list = []
-#     for filename in os.listdir(Qnrf_test_path):
-#         if filename.split('.')[1] == 'jpg':
-#             test_list.append(Qnrf_test_path + filename)
-#     test_list.sort()
-#     np.save('./npydata/qnrf_test.npy', test_list)
-#     print("Generate QNRF image list successfully")
-# except:
-#     print("The QNRF dataset path is wrong. Please check your path.")
 
 try:
 

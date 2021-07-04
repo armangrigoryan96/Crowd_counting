@@ -25,21 +25,11 @@ logger = logging.getLogger('mnist_AutoML')
 
 
 def main(args):
-    if args['dataset'] == 'ShanghaiA':
-        train_file = './npydata/ShanghaiA_train.npy'
-        test_file = './npydata/ShanghaiA_test.npy'
-    elif args['dataset'] == 'ShanghaiB':
-        train_file = './npydata/ShanghaiB_train.npy'
-        test_file = './npydata/ShanghaiB_test.npy'
-    elif args['dataset'] == 'UCF_QNRF':
-        train_file = './npydata/qnrf_train.npy'
-        test_file = './npydata/qnrf_test.npy'
-    elif args['dataset'] == 'JHU':
-        train_file = './npydata/jhu_train.npy'
-        test_file = './npydata/jhu_val.npy'
-    elif args['dataset'] == 'NWPU':
-        train_file = './npydata/nwpu_train.npy'
-        test_file = './npydata/nwpu_val.npy'
+
+
+    train_file = './npydata/jhu_train.npy'
+    test_file = './npydata/jhu_val.npy'
+
 
     with open(train_file, 'rb') as outfile:
         train_list = np.load(outfile).tolist()
