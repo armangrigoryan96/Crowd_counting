@@ -27,8 +27,8 @@ logger = logging.getLogger('mnist_AutoML')
 def main(args):
 
 
-    train_file = './npydata/jhu_train.npy'
-    test_file = './npydata/jhu_val.npy'
+    train_file = './npydata/jhu_test.npy'
+    test_file = './npydata/jhu_test.npy'
 
 
     with open(train_file, 'rb') as outfile:
@@ -39,7 +39,9 @@ def main(args):
     os.environ['CUDA_VISIBLE_DEVICES'] = args['gpu_id']
     model = get_seg_model(train=True)
     model = nn.DataParallel(model, device_ids=[0])
-    model = model.cuda()
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model = model.to(device)
+    # model = model.cuda()
 
     optimizer = torch.optim.Adam(
         [  #
@@ -73,8 +75,11 @@ def main(args):
     else:
         train_data = train_list
         test_data = test_list
-
-
+    print('len train', len(train_data))
+    print('len val', len(test_data))
+    if (len(test_data)==0):
+        print('cant proceed')
+        return
     for epoch in range(args['start_epoch'], args['epochs']):
 
         start = time.time()

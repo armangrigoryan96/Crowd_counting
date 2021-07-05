@@ -37,38 +37,3 @@ try:
     print("Generate JHU image list successfully")
 except:
     print("The JHU dataset path is wrong. Please check your path.")
-
-# try:
-#     f = open("./data/NWPU_list/train.txt", "r")
-#     train_list = f.readlines()
-#
-#     f = open("./data/NWPU_list/val.txt", "r")
-#     val_list = f.readlines()
-#
-#     f = open("./data/NWPU_list/test.txt", "r")
-#     test_list = f.readlines()
-#
-#     root = '/home/dkliang/projects/synchronous/dataset/NWPU_localization/images_2048/'
-#     train_img_list = []
-#     for i in range(len(train_list)):
-#         fname = train_list[i].split(' ')[0] + '.jpg'
-#         train_img_list.append(root + fname)
-#     np.save('./npydata/nwpu_train_2048.npy', train_img_list)
-#
-#     val_img_list = []
-#     for i in range(len(val_list)):
-#         fname = val_list[i].split(' ')[0] + '.jpg'
-#         val_img_list.append(root + fname)
-#     np.save('./npydata/nwpu_val_2048.npy', val_img_list)
-#
-#     test_img_list = []
-#     root = root.replace('images', 'test_data')
-#     for i in range(len(test_list)):
-#         fname = test_list[i].split(' ')[0] + '.jpg'
-#         fname = fname.split('\n')[0] + fname.split('\n')[1]
-#         test_img_list.append(root + fname)
-#
-#     np.save('./npydata/nwpu_test_2048.npy', test_img_list)
-#     print("Generate NWPU image list successfully")
-# except:
-#     print("The NWPU dataset path is wrong. Please check your path.")
