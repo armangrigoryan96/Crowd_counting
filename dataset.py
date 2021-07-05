@@ -57,7 +57,8 @@ class listDataset(Dataset):
 
         '''crop size'''
         if self.train == True:
-            fidt_map = torch.from_numpy(fidt_map).cuda()
+            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+            fidt_map = torch.from_numpy(fidt_map).to(device)
 
             width = self.args['crop_size']
             height = self.args['crop_size']

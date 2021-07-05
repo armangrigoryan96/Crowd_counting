@@ -3,15 +3,15 @@ import argparse
 parser = argparse.ArgumentParser(description='FIDTM')
 
 
-parser.add_argument('--dataset', type=str, default='ShanghaiA',
+parser.add_argument('--dataset', type=str, default='JHU',
                     help='choice train dataset')
 
 
-parser.add_argument('--save_path', type=str, default='save_file/A_baseline',
+parser.add_argument('--save_path', type=str, default='./save_file/JHU',
                     help='save checkpoint directory')
 parser.add_argument('--workers', type=int, default=16,
                     help='load data workers')
-parser.add_argument('--print_freq', type=int, default=200,
+parser.add_argument('--print_freq', type=int, default=10,
                     help='print frequency')
 parser.add_argument('--start_epoch', type=int, default=0,
                     help='start epoch for training')
@@ -23,9 +23,9 @@ parser.add_argument('--pre', type=str, default=None,
 #                     help='pre-trained model directory')
 
 
-parser.add_argument('--batch_size', type=int, default=16,
+parser.add_argument('--batch_size', type=int, default=8,
                     help='input batch size for training')
-parser.add_argument('--crop_size', type=int, default=256,
+parser.add_argument('--crop_size', type=int, default=64,
                     help='crop size for training')
 parser.add_argument('--seed', type=int, default=1,
                     help='random seed')

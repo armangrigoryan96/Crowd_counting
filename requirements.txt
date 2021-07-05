@@ -6,3 +6,7 @@ h5py >=2.10
 pillow >=7.0.0
 imageio >=1.18
 nni >=2.0 
+yacs
+easydict
+neptune-client
+psutil

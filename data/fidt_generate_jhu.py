@@ -41,7 +41,7 @@ if not os.path.exists(test.replace('images', 'gt_fidt_map_2048')):
 if not os.path.exists(test.replace('images', 'gt_show')):
     os.makedirs(test.replace('images', 'gt_show'))
 
-path_sets = [test]
+path_sets = [test, train, val]
 
 img_paths = []
 for path in path_sets:

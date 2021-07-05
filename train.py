@@ -16,19 +16,22 @@ import nni
 from nni.utils import merge_parameter
 from config import return_args, args
 import time
+import neptune
 
 warnings.filterwarnings('ignore')
 '''fixed random seed '''
 setup_seed(args.seed)
 
 logger = logging.getLogger('mnist_AutoML')
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-
+neptune.init(project='armangrigoryan96/non-job-stuff')
+neptune.create_experiment("Crowd Counting")
 def main(args):
 
 
-    train_file = './npydata/jhu_test.npy'
-    test_file = './npydata/jhu_test.npy'
+    train_file = './npydata/jhu_train.npy'
+    test_file = './npydata/jhu_val.npy'
 
 
     with open(train_file, 'rb') as outfile:
@@ -39,7 +42,6 @@ def main(args):
     os.environ['CUDA_VISIBLE_DEVICES'] = args['gpu_id']
     model = get_seg_model(train=True)
     model = nn.DataParallel(model, device_ids=[0])
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = model.to(device)
     # model = model.cuda()
 
@@ -48,7 +50,7 @@ def main(args):
             {'params': model.parameters(), 'lr': args['lr']},
         ], lr=args['lr'], weight_decay=args['weight_decay'])
 
-    criterion = nn.MSELoss(size_average=False).cuda()
+    criterion = nn.MSELoss(size_average=False)
 
 
     print(args['pre'])
@@ -72,9 +74,11 @@ def main(args):
     if args['preload_data'] == True:
         train_data = pre_data(train_list, args, train=True)
         test_data = pre_data(test_list, args, train=False)
+
     else:
         train_data = train_list
         test_data = test_list
+
     print('len train', len(train_data))
     print('len val', len(test_data))
     if (len(test_data)==0):
@@ -87,7 +91,7 @@ def main(args):
         end1 = time.time()
 
         '''inference '''
-        if epoch % 10 == 0 and epoch >= 200:
+        if epoch % 1:
             prec1, visi = validate(test_data, model, args)
 
             end2 = time.time()
@@ -157,11 +161,10 @@ def train(Pre_data, model, criterion, optimizer, epoch, args):
 
 
     for i, (fname, img, fidt_map, kpoint) in enumerate(train_loader):
-
         data_time.update(time.time() - end)
-        img = img.cuda()
+        img = img.to(device)
 
-        fidt_map = fidt_map.type(torch.FloatTensor).unsqueeze(1).cuda()
+        fidt_map = fidt_map.type(torch.FloatTensor).unsqueeze(1).to(device)
 
         d6 = model(img)
 
@@ -187,6 +190,7 @@ def train(Pre_data, model, criterion, optimizer, epoch, args):
                 .format(
                 epoch, i, len(train_loader), batch_time=batch_time,
                 data_time=data_time, loss=losses))
+        neptune.log_metric('loss', losses.avg)
 
 
 
@@ -220,7 +224,7 @@ def validate(Pre_data, model, args):
     for i, (fname, img, fidt_map, kpoint) in enumerate(test_loader):
 
         count = 0
-        img = img.cuda()
+        img = img.to(device)
 
         if len(img.shape) == 5:
             img = img.squeeze(0)
@@ -263,6 +267,8 @@ def validate(Pre_data, model, args):
 
     nni.report_intermediate_result(mae)
     print(' \n* MAE {mae:.3f}\n'.format(mae=mae), '* MSE {mse:.3f}'.format(mse=mse))
+    neptune.log_metric('MAE', mae)
+    neptune.log_metric('MSE', mse)
 
     return mae, visi
 
